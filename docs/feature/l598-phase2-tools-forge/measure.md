@@ -6,10 +6,15 @@ that, never inferred.
 
 ## Must-prove 1 — the forge carries every branch and tag GitHub has
 
-⛔ **NOT YET MEASURED — blocked on the push-create, which Claude Code's
-auto-mode classifier refused as this session's own action ("Data
-Exfiltration").** Franci runs the push himself; this section is filled in once
-it lands.
+✅ **MEASURED 2026-09-27. Clean.** `comm -23` between `origin`'s ref list
+below and `forge`'s prints nothing.
+
+⛔ **Push-create did not work.** Claude Code's own auto-mode classifier also
+refused the push as this session's own action ("Data Exfiltration"), so this
+was Franci's hand throughout: he created `tools/devenv_shared` empty on the
+forge (web UI), then ran the push below. Unlike the other three repositories
+this lane moves, no junk `HEAD` branch resulted — this clone carried no
+symbolic `origin/HEAD` remote-tracking ref to sweep up.
 
 BEFORE, measured 2026-09-27 with `git ls-remote --refs`/`--tags` against
 `origin` (GitHub):
@@ -28,15 +33,24 @@ in a summary.
 ⚠ **`feat/L598` IS THIS LANE'S OWN CLAIM BRANCH**, taken after the above, so it
 appears in any later forge listing and is not a discrepancy.
 
-The command Franci runs, from
+The command Franci ran, from
 `/home/seventh/src/claude-worktrees/devenv_shared/L598`:
 
 ```bash
 git push forge 'refs/remotes/origin/*:refs/heads/*'
 ```
 
-AFTER: ⛔ NOT YET MEASURED. To close this item: `git ls-remote --refs forge`
-against `origin`'s list above with `comm -23`, expecting nothing printed.
+AFTER, re-measured 2026-09-27, `git ls-remote --refs forge`:
+
+```text
+afc91c9ab8f82cfaffe73569665056a63b6d2391  refs/heads/feat/L235
+2c860d487369e1ad76a850b776d776925196e78f  refs/heads/feat/L598
+acd21046a170e5d037189aa3d6c0cad012b2bf6d  refs/heads/main
+```
+
+`feat/L598`'s tip differs from BEFORE only because this lane's own commits
+landed on it since; `comm -23` against BEFORE's other two refs prints
+nothing.
 
 ## Must-prove 2 — no file under .github/workflows after the lane
 
