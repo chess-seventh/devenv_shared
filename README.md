@@ -4,6 +4,31 @@ Shared `devenv` modules that other governed repositories import. Nothing here is
 built or run on its own — these files are *read* by another repository's devenv
 evaluation.
 
+## Where this repository lives
+
+**The fleet's forge is canonical (L598).** `tools/devenv_shared` on the forge
+is where this repository is developed and where its branches are cut; the
+GitHub repository it came from is a **mirror downstream of it**. Both carry
+every branch and tag, at the same objects.
+
+⚠ **So a commit pushed to GitHub is a commit the forge does not have, and the
+mirror will overwrite it.** Clone from the forge, on the fleet's own network:
+
+```bash
+git clone ssh://forgejo@nixos-02.caracara-palermo.ts.net:2223/tools/devenv_shared.git
+```
+
+⚠ **THE MIRROR IS A PUSH MIRROR AND IT IS NOT THIS REPOSITORY'S TO
+CONFIGURE.** It is an admin-level setting on the forge carrying a GitHub
+credential, so it is set by hand and not by anything here. Until it is live,
+GitHub holds whatever it held on the day of the move;
+`docs/feature/l598-phase2-tools-forge/measure.md` records what was measured.
+
+⛔ **THIS REPOSITORY HAS NO GATE ON THE FORGE, AND THAT IS NOT AN OMISSION.**
+It never had a GitHub Actions workflow either — as this file already says,
+nothing here is built or run on its own, so there is nothing for a `push`/
+`pull_request` job to check.
+
 ## What is in here
 
 | file | what it carries |
